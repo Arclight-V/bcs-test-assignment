@@ -1,5 +1,7 @@
 package bcs.marketvalue.server;
 
+import bcs.marketvalue.jsonparser.ParserJson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,9 +24,10 @@ public class Server {
     }
 
     private static class ClientHandler extends Thread {
-        private Socket clientSocket;
-        private PrintWriter out;
-        private BufferedReader in;
+        private Socket          clientSocket;
+        private PrintWriter     out;
+        private BufferedReader  in;
+        private ParserJson      parserJson;
 
         public ClientHandler (Socket socket) {
             this.clientSocket = socket;
@@ -34,8 +37,7 @@ public class Server {
             try {
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-
+                parserJson = new ParserJson(in);
                 in.close();
                 out.close();
                 clientSocket.close();
