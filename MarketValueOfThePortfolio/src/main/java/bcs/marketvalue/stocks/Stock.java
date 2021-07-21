@@ -4,14 +4,13 @@ public class Stock {
     private String      tickerSymbol;
     private String      sector;
     private float       value;
+    private float       volume;
 
-    public Stock() {
-    }
-
-    public Stock(String tickerSymbol, String sector, float value) {
+    public Stock(String tickerSymbol, String sector, float value, float volume) {
         this.tickerSymbol = tickerSymbol;
         this.sector = sector;
         this.value = value;
+        this.volume = volume;
     }
 
     public String getTickerSymbol() {
@@ -25,5 +24,8 @@ public class Stock {
     public float getValue() {
         return value;
     }
-}
 
+    public float getVolume() {
+        return volume;
+    }
+}
