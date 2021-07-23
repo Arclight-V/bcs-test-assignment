@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.stream.Collectors;
 
 public class Server {
     private ServerSocket serverSocket;
@@ -37,11 +38,13 @@ public class Server {
             try {
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                parserJson = new ParserJson(in);
-                in.close();
-                out.close();
-                clientSocket.close();
-
+                String inputLine;
+                    inputLine = in.lines().collect(Collectors.joining());
+                    parserJson = new ParserJson(inputLine);
+                    parserJson.searchStocks();
+                    in.close();
+                    out.close();
+                    clientSocket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
