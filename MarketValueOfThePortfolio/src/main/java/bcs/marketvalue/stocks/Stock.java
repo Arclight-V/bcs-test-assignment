@@ -8,10 +8,8 @@ public class Stock {
     public Stock() {
     }
 
-    public Stock(String tickerSymbol, String sector, float value) {
+    public Stock(String tickerSymbol) {
         this.tickerSymbol = tickerSymbol;
-        this.sector = sector;
-        this.value = value;
     }
 
     public String getTickerSymbol() {

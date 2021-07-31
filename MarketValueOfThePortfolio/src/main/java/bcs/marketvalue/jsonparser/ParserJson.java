@@ -1,6 +1,7 @@
 package bcs.marketvalue.jsonparser;
 
 
+import bcs.marketvalue.stocks.Stock;
 import bcs.marketvalue.stocks.StockVolume;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,27 +13,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserJson {
-    private String  in;
-    private JSONObject jsonObject;
-    private JSONArray jsonArray;
+    private JSONObject      jsonObject;
+    private JSONArray       jsonArray;
     private String          errorString;
-    private List<String>    stockList;
+    private StockVolume[]   stockVolumes;
 
     public ParserJson(String in) {
-        this.in = in;
-        stockList = new ArrayList<String>();
+        jsonObject = new JSONObject(in);
     }
 
-    public void searchStocks() {
-        jsonObject = new JSONObject(in);
-        if (jsonObject.get("stocks") == null) {
+    public StockVolume[] searchStocks() {
+        if ((jsonArray = (JSONArray)jsonObject.get("stocks")) == null) {
             errorString = "The stocks token in missing";
-            return;
+            return null;
         }
-        jsonArray = (JSONArray)jsonObject.get("stocks");
+        stockVolumes = new StockVolume[jsonArray.length()];
         for (int i=0; i < jsonArray.length(); i++) {
-            System.out.println(jsonArray.getJSONObject(i));
+            System.out.println(jsonArray.opt(i));
+            jsonArray.opt(i);
         }
+        return null;
     }
 
     public String getErrorString() {
